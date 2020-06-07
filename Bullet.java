@@ -33,9 +33,20 @@ public class Bullet extends Actor
 			 selected.removeSelfFromGrid();
 			 this.removeSelfFromGrid();
 			 double r = Math.random()*4; // 0 - 3
-			 if((int)r == 1){ //25% chance
-				Actor e = new ExLives(); //change to ammo pack
+			 double p = Math.random()*2;
+			 if((int)r == 1)
+			 { //25% chance of getting either ammo or exlives
+				if (p ==0)
+				{
+					Actor g = new Ammo();
+					g.putSelfInGrid(grid,loc);
+				}
+				
+				else
+				{
+					Actor e = new ExLives(); //change to ammo pack
 				e.putSelfInGrid(grid, loc);
+				}
 			 }
 		}
 		else

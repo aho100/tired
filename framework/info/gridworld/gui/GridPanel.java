@@ -71,7 +71,7 @@ public class GridPanel extends JPanel implements Scrollable,
     private int numRows, numCols, originRow, originCol;
     private int cellSize; // the size of each cell, EXCLUDING the gridlines
     private boolean toolTipsEnabled;
-    private Color backgroundColor = Color.BLACK;
+    private Color backgroundColor = Color.BLUE;
     private ResourceBundle resources;
     private DisplayMap displayMap;
     private Location currentLocation;
