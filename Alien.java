@@ -1,7 +1,6 @@
 import info.gridworld.grid.Grid;
 import info.gridworld.actor.Actor;
 import info.gridworld.actor.Critter;
-import info.gridworld.actor.Player;
 import info.gridworld.grid.Location;
 import info.gridworld.actor.Rock;
 
@@ -13,8 +12,8 @@ public class Alien extends Critter {
 	public boolean boss;
 	public Player player; 
 	public int steps;
-	public static final Location FIRST_LIVE = Location(2, 13);
-	public static final Location SECOND_LIVE = Location(1, 13);
+	public static final Location FIRST_LIVE = new Location(2, 13);
+	public static final Location SECOND_LIVE = new Location(1, 13);
 
 	//Constructs an Alien
     //@param rocks: determines if the Alien can place rocks or not
@@ -44,12 +43,13 @@ public class Alien extends Critter {
 		for (Actor a : actors) {
             if (a instanceof Player) { 
             	removeSelfFromGrid();
-                if (get(FIRST_LIVE) != null)
+                if (FIRST_LIVE != null)
                 	gr.remove(FIRST_LIVE);
-                else if (get(SECOND_LIVE) != null)
+                else if (SECOND_LIVE != null)
                 	gr.remove(SECOND_LIVE);
                 //The Player loses the third time they die and "Game Over" is shown on the middle of the screen.
-                gr.put(new Location(5,7), new GameOver());
+                Location loc = new Location((getGrid().getNumRows() / 2), (getGrid().getNumCols() / 2));
+                gr.put(loc, new GameOver());
             }
         }
     }
