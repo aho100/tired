@@ -105,6 +105,18 @@ public class GridPanel extends JPanel implements Scrollable,
         g2.setColor(backgroundColor); 
         g2.fillRect(insets.left, insets.top, numCols * (cellSize + 1) + 1, numRows
                 * (cellSize + 1) + 1);
+                
+        // Begin of code to use an image as the background
+        /*
+        BufferedImage img = null;
+
+        try {
+                img = ImageIO.read(new File("galaxy.JPG"));
+        } catch (IOException e) {
+                }
+        g2.drawImage(img, insets.left, insets.top, numCols * (cellSize + 1) + 1, numRows * (cellSize + 1) + 1, 0, 0, img.getWidth(), img.getHeight(), null);
+        */
+        // End of code to use an image as the background
 
         drawWatermark(g2);
         drawGridlines(g2);
