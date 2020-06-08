@@ -1,4 +1,4 @@
-/* 
+/*
  * AP(r) Computer Science GridWorld Case Study:
  * Copyright(c) 2005-2006 Cay S. Horstmann (http://horstmann.com)
  *
@@ -10,7 +10,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * @author Cay Horstmann
  */
 
@@ -19,6 +19,10 @@ package info.gridworld.actor;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import info.gridworld.world.World;
+import info.gridworld.actor.Flower;
+import info.gridworld.actor.Rock;
+
+import java.awt.Color;
 
 import java.util.ArrayList;
 
@@ -28,14 +32,20 @@ import java.util.ArrayList;
  */
 
 public class ActorWorld extends World<Actor>
-{    
-    private static final String DEFAULT_MESSAGE = "Begin.";
-    
+{
+    private static final String DEFAULT_MESSAGE = "Click on a grid location to construct or manipulate an actor.";
+
+	private Location selected;		//new variable to move individual actors
+  private Location player = null;
+  private int ammo = 5;
+
+
     /**
      * Constructs an actor world with a default grid.
      */
     public ActorWorld()
     {
+	selected = null;
     }
 
     /**
@@ -45,6 +55,7 @@ public class ActorWorld extends World<Actor>
     public ActorWorld(Grid<Actor> grid)
     {
         super(grid);
+	selected = null;
     }
 
     public void show()
@@ -53,6 +64,105 @@ public class ActorWorld extends World<Actor>
             setMessage(DEFAULT_MESSAGE);
         super.show();
     }
+
+
+
+	//NEW method to do something
+    public void stuff()
+    {
+	Grid<Actor> g = getGrid();
+
+	Actor obj;
+
+	ArrayList<Actor> sorted = new ArrayList<Actor>();
+	for(int i = 0; i < g.getNumRows(); i++)
+	{
+		for(int j = 0; j < g.getNumCols(); j++)
+		{
+			obj = g.get(new Location(i, j));
+			if(obj != null)
+				sorted.add(obj);
+		}
+	}
+
+
+        for (int k = 0; k < sorted.size(); k++)
+        {
+	    Actor a = sorted.get(k);
+            Location loc = a.getLocation();
+	    Location next = new Location(loc.getRow()-1, loc.getCol());
+	    if(g.isValid(next) && g.get(next) == null)	//check to make sure it's in the grid & not overlapping another Actor
+	    {
+		a.moveTo(next);
+		setMessage(""+sorted.size());
+	    }
+        }
+
+
+
+
+    }
+
+
+    public boolean keyPressed(String description, Location loc)
+    {
+	setMessage(description);   //Changes the message to display the 'keypressed', use to debug
+
+  Grid<Actor> g = getGrid();
+
+	int x = 0;
+	int y = 0;
+	if(description.equals("W"))
+		y = -1;
+	if(description.equals("A"))
+		x = -1;
+	if(description.equals("D"))
+		x = 1;
+	if(description.equals("S"))
+		y = 1;
+  if(description.equals("M"))
+  {
+    Bullet bull = new Bullet(g.get(player).getDirection());
+    //Bug bull = new Bug(Color.YELLOW);
+    bull.setDirection(g.get(player).getDirection());
+    Location loc1 = player.getAdjacentLocation(g.get(player).getDirection());
+    bull.putSelfInGrid(g, loc1);
+    ammo -= 1;
+  }
+
+
+	if((x != 0 || y != 0) && player != null && g.isValid(player))
+	{
+		Actor obj = g.get(player);
+		if (obj != null )
+		{
+	    Location player1 = new Location(player.getRow() + y, player.getCol() + x);
+      if (g.isValid(player1) && !(g.get(player1) instanceof Rock))
+        player = player1;
+
+      switch(x){
+        case 1:
+          obj.setDirection(90);
+          break;
+        case -1:
+          obj.setDirection(270);
+          break;
+      }
+      switch(y){
+        case 1:
+          obj.setDirection(180);
+          break;
+        case -1:
+          obj.setDirection(0);
+          break;
+      }
+
+			obj.moveTo(player);
+		}
+	}
+        return false;
+    }
+
 
     public void step()
     {
@@ -104,7 +214,25 @@ public class ActorWorld extends World<Actor>
         occupant.removeSelfFromGrid();
         return occupant;
     }
-	
-	
-	
+
+	//overrided
+    public boolean locationClicked(Location loc)
+    {
+	setMessage(loc.toString());     //Changes the message to the 'location' clicked.
+
+	selected = loc;
+
+        return false;
+    }
+
+    public void playerLocation(Location loc)
+    {
+      player = loc;
+    }
+
+    public Location getPlayerLocation()
+    {
+      return player;
+    }
+
 }
