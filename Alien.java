@@ -12,7 +12,6 @@ public class Alien extends Critter {
 	public boolean boss;
 	public Player player; 
 	public int steps;
-	public boolean eaten;
 	public final Location FIRST_LIFE = new Location(2, 13);
 	public final Location SECOND_LIFE = new Location(1, 13);
 
@@ -23,7 +22,6 @@ public class Alien extends Critter {
     	boss = canPlaceRocks;
     	player = player1;
     	steps = 0;
-    	eaten = false;
     }
 
     public void act() {
@@ -45,10 +43,6 @@ public class Alien extends Critter {
 		for (Actor a : actors) {
             if (a instanceof Player) { 
             	removeSelfFromGrid();
-            	eaten = true;
-            }
-        }
-        if (eaten) {
 	        if (gr.get(FIRST_LIFE) != null)
 	            gr.remove(FIRST_LIFE);
 	        else if (gr.get(SECOND_LIFE) != null)
@@ -57,7 +51,6 @@ public class Alien extends Critter {
             else
 		    	gr.put(new Location(5,5), new GameOver());
         }
-        eaten = false;
     }
 
     //Selects the location for the next move
@@ -107,5 +100,5 @@ public class Alien extends Critter {
 	    if (chance == 1) 
 	    	return true;
 	    return false;
-	}
+    }
 }
