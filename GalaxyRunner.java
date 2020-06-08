@@ -18,7 +18,7 @@ public class GalaxyRunner{
 		Player player = new Player(goal);
 		
 		world.add(new Location(0,0), player);
-		for (int i = 0; i < 19; i++)
+		for (int i = 0; i < 14; i++)
 		{
 			world.add(new Alien(false, player));
 		}
