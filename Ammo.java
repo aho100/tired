@@ -13,7 +13,7 @@ public class Ammo extends Actor
 {	
 	public Ammo()
 	{
-		setColor(Color.BLACK);
+		setColor(Color.YELLOW);
 		setDirection(0);
 	}
 }
