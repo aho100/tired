@@ -29,9 +29,11 @@ public class Alien extends Critter {
             return;
         ArrayList<Actor> actors = getActors();  //Gets actors that occupy neighboring grid locations
         processActors(actors);
-        ArrayList<Location> moveLocs = getMoveLocations();  //Implemented to return the empty neighboring locations.
-        Location loc = selectMoveLocation(moveLocs);
-        makeMove(loc);
+        if (getGrid() != null) {
+        	ArrayList<Location> moveLocs = getMoveLocations();  //Implemented to return the empty neighboring locations.
+        	Location loc = selectMoveLocation(moveLocs);
+        	makeMove(loc);
+        }
     }
 
     //Implemented to kill (i.e. remove) the Player and remove a life from the Player if they are killed
@@ -50,6 +52,7 @@ public class Alien extends Critter {
 	        //The Player loses the third time they die and "Game Over" is shown on the middle of the screen.
             else
 		    	gr.put(new Location(5,5), new GameOver());
+        	}
         }
     }
 
