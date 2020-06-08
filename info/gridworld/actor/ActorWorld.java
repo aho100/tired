@@ -35,10 +35,9 @@ import java.util.ArrayList;
 public class ActorWorld extends World<Actor>
 {
     private static final String DEFAULT_MESSAGE = "Click on a grid location to construct or manipulate an actor.";
-
-	private Location selected;		//new variable to move individual actors
-  private Location player = null;
-  private int ammo = 5;
+    
+    private Location selected;		//new variable to move individual actors
+    private Location player = null;
 
 
     /**
@@ -111,7 +110,10 @@ public class ActorWorld extends World<Actor>
       {
         Location loc = new Location(ind, 14);
         if (g.get(loc) != null)
+        {
+          g.get(loc).removeSelfFromGrid();
           return true;
+        }
       }
       return false;
     }
@@ -136,11 +138,10 @@ public class ActorWorld extends World<Actor>
   	if(description.equals("M") && isAmmo())
   	{
     		Bullet bull = new Bullet(g.get(player).getDirection());
-    		//Bug bull = new Bug(Color.YELLOW);
     		bull.setDirection(g.get(player).getDirection());
     		Location loc1 = player.getAdjacentLocation(g.get(player).getDirection());
     		bull.putSelfInGrid(g, loc1);
-    		ammo -= 1;
+    		deleteAmmo();
  	}
 
 
