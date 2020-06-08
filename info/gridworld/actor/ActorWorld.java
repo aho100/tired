@@ -137,9 +137,10 @@ public class ActorWorld extends World<Actor>
 		y = 1;
   	if(description.equals("M") && isAmmo())
   	{
-    		Bullet bull = new Bullet(g.get(player).getDirection());
-    		bull.setDirection(g.get(player).getDirection());
-    		Location loc1 = player.getAdjacentLocation(g.get(player).getDirection());
+		int DIRECTION = g.get(player).getDirection() + 90
+    		Bullet bull = new Bullet( DIRECTION );
+    		bull.setDirection( DIRECTION );
+    		Location loc1 = player.getAdjacentLocation( DIRECTION );
     		bull.putSelfInGrid(g, loc1);
  	}
 
