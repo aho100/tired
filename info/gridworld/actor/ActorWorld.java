@@ -21,6 +21,7 @@ import info.gridworld.grid.Location;
 import info.gridworld.world.World;
 import info.gridworld.actor.Flower;
 import info.gridworld.actor.Rock;
+import info.gridworld.actor.Bullet;
 
 import java.awt.Color;
 
@@ -108,7 +109,7 @@ public class ActorWorld extends World<Actor>
     {
 	setMessage(description);   //Changes the message to display the 'keypressed', use to debug
 
-  Grid<Actor> g = getGrid();
+  	Grid<Actor> g = getGrid();
 
 	int x = 0;
 	int y = 0;
@@ -120,15 +121,15 @@ public class ActorWorld extends World<Actor>
 		x = 1;
 	if(description.equals("S"))
 		y = 1;
-  if(description.equals("M"))
-  {
-    Bullet bull = new Bullet(g.get(player).getDirection());
-    //Bug bull = new Bug(Color.YELLOW);
-    bull.setDirection(g.get(player).getDirection());
-    Location loc1 = player.getAdjacentLocation(g.get(player).getDirection());
-    bull.putSelfInGrid(g, loc1);
-    ammo -= 1;
-  }
+  	if(description.equals("M"))
+  	{
+    		Bullet bull = new Bullet(g.get(player).getDirection());
+    		//Bug bull = new Bug(Color.YELLOW);
+    		bull.setDirection(g.get(player).getDirection());
+    		Location loc1 = player.getAdjacentLocation(g.get(player).getDirection());
+    		bull.putSelfInGrid(g, loc1);
+    		ammo -= 1;
+ 	}
 
 
 	if((x != 0 || y != 0) && player != null && g.isValid(player))
