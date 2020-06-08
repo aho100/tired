@@ -14,8 +14,8 @@ public class GalaxyRunner{
 	public static void main(String[] args)
 	{
 		ActorWorld world = new ActorWorld();
-		
-		Player player = new Player((11,11));
+		Location goal = new Location(11,11);
+		Player player = new Player(goal);
 		world.add(new Location(0,0), player);
 		for (int i = 0; i < 19; i++)
 		{
@@ -30,10 +30,8 @@ public class GalaxyRunner{
 		{
 			world.add(new Ammo());
 		}
-		Bullet b = new Bullet();
-		world.add(new Location(8,2),b);
-		Flower flow = new Flower();
-		world.add(new Location(10,2),flow);
+	
+		
 		
 		BulletSupply tracker1 = new BulletSupply(); //tracks bullets and lives on the side of the grid
 		BulletSupply tracker2 = new BulletSupply();
@@ -52,40 +50,25 @@ public class GalaxyRunner{
 		world.add(new Location (4,14), tracker4);
 		world.add(new Location (5,14), tracker5);
 		
-		/*Flower c = new Flower();
-		world.add(new Location(11,0),c);
-		Flower d = new Flower();
-		world.add(new Location(11,1),d);
-		Flower e = new Flower();
-		world.add(new Location(11,2),e);
-		Flower f = new Flower();
-		world.add(new Location(11,3),f);		
-		Flower g = new Flower();
-		world.add(new Location(11,4),g);
-		Flower h = new Flower();
-		world.add(new Location(11,5),h);		
-		Flower i = new Flower();
-		world.add(new Location(11,6),i);
-		Flower j = new Flower();
-		world.add(new Location(11,7),j);		
-		Flower k = new Flower();
-		world.add(new Location(11,8),k);
-		Flower l = new Flower();
-		world.add(new Location(11,9),l);		
-		Flower m = new Flower();
-		world.add(new Location(11,10),m);
-		Flower n = new Flower();
-		world.add(new Location(11,11),n);		
-		Flower o = new Flower();
-		world.add(new Location(11,12),o);
-		Flower p = new Flower();
-		world.add(new Location(11,13),p);
-		Flower q = new Flower();
-		world.add(new Location(11,14),q);*/
+		
 		LastTile gg = new LastTile();    //represents the exit
 		world.add(new Location(11,11),gg);
 		
+		for (int r = 0; r < 12; r++)
+		{
+			world.add(new Location(r, 12),new Rock());
 		
+		}
+		world.add(new Location(0,13), new Rock());
+		world.add(new Location(0,14), new Rock());
+		for (int p = 3; p <12; p++)
+		{
+			world.add(new Location(p, 13), new Rock());
+		}
+		for (int q = 6; q < 12; q++)
+		{
+			world.add(new Location(q,14),new Rock());
+		}
 	
 		world.show();
 	}
