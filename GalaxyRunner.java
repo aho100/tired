@@ -31,11 +31,11 @@ public class GalaxyRunner{
 		Flower flow = new Flower();
 		world.add(new Location(10,2),flow);
 		
-		Bullet tracker1 = new Bullet(); //tracks bullets and lives on the side of the grid
-		Bullet tracker2 = new Bullet();
-		Bullet tracker3 = new Bullet();
-		Bullet tracker4 = new Bullet();
-		Bullet tracker5 = new Bullet();
+		BulletSupply tracker1 = new BulletSupply(); //tracks bullets and lives on the side of the grid
+		BulletSupply tracker2 = new BulletSupply();
+		BulletSupply tracker3 = new BulletSupply();
+		BulletSupply tracker4 = new BulletSupply();
+		BulletSupply tracker5 = new BulletSupply();
 		
 		ExLives life1 = new ExLives();
 		ExLives life2 = new ExLives(); 
