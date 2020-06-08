@@ -19,7 +19,7 @@ public class GalaxyRunner{
 		world.playerLocation(player.getLocation());
 		
 		world.add(new Location(0,0), player);
-		for (int i = 0; i < 19; i++)
+		for (int i = 0; i < 9; i++)
 		{
 			double w = Math.random() * 9 + 2;
 			double y = Math.random() * 12;
