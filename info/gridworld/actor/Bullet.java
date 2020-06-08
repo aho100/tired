@@ -1,4 +1,3 @@
-
 package info.gridworld.actor;
 
 import info.gridworld.grid.Grid;
@@ -57,7 +56,7 @@ public class Bullet extends Actor
 		{
 			a = gr.get(l);
 
-			if (a != null && !(a instanceof Rock))
+			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo))
 			{
 				selected = gr.get(l);
 				return true;
