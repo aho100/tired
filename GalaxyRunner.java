@@ -16,15 +16,20 @@ public class GalaxyRunner{
 		ActorWorld world = new ActorWorld();
 		Location goal = new Location(11,11);
 		Player player = new Player(goal);
+		world.playerLocation(player.getLocation());
 		
 		world.add(new Location(0,0), player);
-		for (int i = 0; i < 14; i++)
+		for (int i = 0; i < 19; i++)
 		{
-			world.add(new Alien(false, player));
+			double w = Math.random() * 9 + 2;
+			double y = Math.random() * 12;
+			world.add(new Location ((int)w, (int)y), new Alien(false, player));
 		}
 		for (int k =0; k < 1;k++)
 		{
-			world.add(new Alien(true, player));
+			double w = Math.random() * 9 + 2;
+			double y = Math.random() * 12;
+			world.add(new Location ((int)w, (int)y), new Alien(true, player));
 		}
 		
 		for (int j =0; j < 3; j++)
@@ -70,8 +75,6 @@ public class GalaxyRunner{
 		{
 			world.add(new Location(q,14),new Rock());
 		}
-		
-		world.playerLocation(player.getLocation());
 	
 		world.show();
 	}
