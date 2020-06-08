@@ -155,18 +155,18 @@ public class ActorWorld extends World<Actor>
 
       switch(x){
         case 1:
-          obj.setDirection(90);
+          obj.setDirection(0);
           break;
         case -1:
-          obj.setDirection(270);
+          obj.setDirection(180);
           break;
       }
       switch(y){
         case 1:
-          obj.setDirection(180);
+          obj.setDirection(90);
           break;
         case -1:
-          obj.setDirection(0);
+          obj.setDirection(270);
           break;
       }
 
