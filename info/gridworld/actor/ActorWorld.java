@@ -141,7 +141,6 @@ public class ActorWorld extends World<Actor>
     		bull.setDirection(g.get(player).getDirection());
     		Location loc1 = player.getAdjacentLocation(g.get(player).getDirection());
     		bull.putSelfInGrid(g, loc1);
-    		deleteAmmo();
  	}
 
 
