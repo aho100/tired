@@ -103,6 +103,18 @@ public class ActorWorld extends World<Actor>
 
 
     }
+    
+    public boolean isAmmo()
+    {
+      Grid<Actor> g = getGrid();
+      for(int ind = 5; ind > 0; ind--)
+      {
+        Location loc = new Location(ind, 14);
+        if (g.get(loc) != null)
+          return true;
+      }
+      return false;
+    }
 
 
     public boolean keyPressed(String description, Location loc)
@@ -121,7 +133,7 @@ public class ActorWorld extends World<Actor>
 		x = 1;
 	if(description.equals("S"))
 		y = 1;
-  	if(description.equals("M"))
+  	if(description.equals("M") && isAmmo())
   	{
     		Bullet bull = new Bullet(g.get(player).getDirection());
     		//Bug bull = new Bug(Color.YELLOW);
