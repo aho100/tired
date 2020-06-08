@@ -75,6 +75,8 @@ public class GalaxyRunner{
 		{
 			world.add(new Location(q,14),new Rock());
 		}
+		
+		world.playerLocation(player.getLocation()); 
 	
 		world.show();
 	}
