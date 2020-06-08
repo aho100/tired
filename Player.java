@@ -2,7 +2,7 @@ import info.gridworld.actor.Bug;
 import info.gridworld.actor.Actor;
 import info.gridworld.actor.Flower;
 import info.gridworld.actor.Rock;
-//import info.gridWorld.actor.YouWin;
+import info.gridWorld.actor.YouWin;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import java.awt.Color;
@@ -29,7 +29,6 @@ public class Player extends Bug
     if (getLocation().equals(loc))
     {
       YouWin x = new YouWin();
-      //Actor x = new Actor();
       Location loc = new Location((getGrid().getNumRows() / 2), (getGrid().getNumCols() / 2));
       x.putSelfInGrid(getGrid(), loc);
       removeSelfFromGrid();
