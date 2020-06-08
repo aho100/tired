@@ -14,15 +14,18 @@ public class GalaxyRunner{
 	public static void main(String[] args)
 	{
 		ActorWorld world = new ActorWorld();
-		//Enemy a = new Enemy();
 		
-		//world.add(a); //do this 24 more times
-		
-		/*for (int i = 0; i < 20; i++)
+		Player player = new Player();
+		world.add(new Location(0,0), player);
+		for (int i = 0; i < 20; i++)
 		{
-			world.add(new Enemy());
+			world.add(new Alien());
 		}
-		*/
+		
+		for (int j =0; j < 3; j++)
+		{
+			world.add(new Ammo());
+		}
 		Bullet b = new Bullet();
 		world.add(new Location(8,2),b);
 		Flower flow = new Flower();
