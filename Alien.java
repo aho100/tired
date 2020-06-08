@@ -48,8 +48,7 @@ public class Alien extends Critter {
                 else if (SECOND_LIVE != null)
                 	gr.remove(SECOND_LIVE);
                 //The Player loses the third time they die and "Game Over" is shown on the middle of the screen.
-                Location loc = new Location((getGrid().getNumRows() / 2), (getGrid().getNumCols() / 2));
-                gr.put(loc, new GameOver());
+                gr.put(new Location(5,6), new GameOver());
             }
         }
     }
@@ -101,5 +100,5 @@ public class Alien extends Critter {
 	    if (chance == 1) 
 	    	return true;
 	    return false;
-	}
+    }
 }
