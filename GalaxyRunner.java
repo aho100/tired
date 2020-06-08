@@ -5,6 +5,7 @@ import info.gridworld.actor.Rock;
 import info.gridworld.actor.Flower;
 import info.gridworld.actor.Critter;
 import info.gridworld.actor.ExLives;
+import info.gridworld.actor.Ammo;
 
 
 
