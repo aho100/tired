@@ -25,92 +25,47 @@ public class Bullet extends Actor
 	
 	public void act()
 	{
-		Location loc=null;
+		Location loc = null;
 		Grid grid = getGrid();
-		//System.out.println(checkEnemies());
-		if(checkEnemies()){
+		
+		if(checkEnemies())
+		{
 			 loc = selected.getLocation();
 			 selected.removeSelfFromGrid();
-			 this.removeSelfFromGrid();
+			 removeSelfFromGrid();
 			 double r = Math.random()*4; // 0 - 3
-			 double p = Math.random()*2;
 			 if((int)r == 1)
-			 { //25% chance of getting either ammo or exlives
-				if (p ==0)
-				{
-					Actor g = new Ammo();
-					g.putSelfInGrid(grid,loc);
-				}
-				
-				else
-				{
-					Actor e = new ExLives(); //change to ammo pack
+			 { //25% chance
+				Actor e = new ExLives(); //change to ammo pack
 				e.putSelfInGrid(grid, loc);
-				}
 			 }
 		}
 		else
-			this.removeSelfFromGrid();
-			
-		
+			removeSelfFromGrid();
+
+
 	}
 	
 	public boolean checkEnemies()   //checks if the column, the bullet is in, has an enemy
-	{	Grid<Actor> gr = getGrid();
-		boolean isThere = false;
+	{
+		Grid<Actor> gr = getGrid();
 		Actor a = null;
-		int bulletCol = this.getLocation().getCol();
-		int bulletRow = this.getLocation().getRow();
-		//System.out.println(bulletCol + " " + bulletRow);
-		Location loc;
-		//if (getDirection() == 180)
-		for (int i = bulletRow+1; i < gr.getNumRows(); i++)
+
+		Location loc = getLocation();
+
+		for (Location l = loc.getAdjacentLocation(getDirection()); gr.isValid(l); l = l.getAdjacentLocation(getDirection()))
 		{
-			//System.out.println(i + " " + bulletCol);
-			loc = new Location(i, bulletCol);
-			a = gr.get(loc);
-			//System.out.println(a);
-			if (a != null && !(a instanceof ExLives)) //add if its not a rock or an ammo pack
-			{	selected = gr.get(loc);
+			a = gr.get(l);
+
+			if (a != null && !(a instanceof Rock))
+			{
+				selected = gr.get(l);
 				return true;
 			}
 		}
-		
-		/*if (this.getDirection() == 90)                                           accounts for all four directions
-			for (int j = bulletCol +1; j < gr.getNumCols(); j++)
-			{
-				loc = new Location(bulletRow, j);
-				a = gr.get(loc);
-				if (a != null && !(a instanceof ExLives))
-				{
-					selected = gr.get(loc);
-					return true;
-				}
-			}
-		if (this.getDirection() ==0)
-			for (int k = bulletRow -1; k > 0; k--)
-			{
-				loc = new Location(k, bulletCol);
-				a = gr.get(loc);
-				if (a != null && !(a instanceof ExLives))
-				{
-					selected = gr.get(loc);
-					return true;
-				}
-			}
-		if (this.getDirection() == 270)
-			for (int j = bulletCol -1; j > 0; j--)
-			{
-				loc = new Location(bulletRow, j);
-				a = gr.get(loc);
-				if (a != null && !(a instanceof ExLives))
-				{
-					selected = gr.get(loc);
-					return true;
-				}
-			}	
-		*/
-		return isThere;
-}
+
+		return false;
+	}
+	
 }
 	
