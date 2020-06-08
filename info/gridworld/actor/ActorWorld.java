@@ -19,12 +19,6 @@ package info.gridworld.actor;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import info.gridworld.world.World;
-import info.gridworld.actor.Flower;
-import info.gridworld.actor.Rock;
-import info.gridworld.actor.Bullet;
-import info.gridworld.actor.ExLives;
-import info.gridworld.actor.Ammo;
-
 
 import java.awt.Color;
 
@@ -151,6 +145,13 @@ public class ActorWorld extends World<Actor>
       return false;
     }
 
+    public Location getLocationFront()
+    {
+      Grid<Actor> g = getGrid();
+      Location loc = player.getAdjacentLocation( g.get(player).getDirection() + 90 );
+      return loc;
+    }
+
 
     public boolean keyPressed(String description, Location loc)
     {
@@ -168,13 +169,20 @@ public class ActorWorld extends World<Actor>
 		x = 1;
 	if(description.equals("S"))
 		y = 1;
-  if(description.equals("M") && isAmmo())
+  if(description.equals("M") && !(g.get(getLocationFront()) instanceof Ammo)
+      && !(g.get(getLocationFront()) instanceof ExLives) && isAmmo())
   {
-	      int DIRECTION = g.get(player).getDirection() + 90;
-    		Bullet bull = new Bullet( DIRECTION );
-    		bull.setDirection( DIRECTION );
-    		Location loc1 = player.getAdjacentLocation( DIRECTION );
-    		bull.putSelfInGrid(g, loc1);
+    if (g.get(getLocationFront()) instanceof Alien)
+    {
+      g.remove(getLocationFront());
+    }
+    else
+    {
+      int dir = g.get(player).getDirection() + 90;
+      Bullet bull = new Bullet( dir );
+      bull.setDirection( dir );
+      bull.putSelfInGrid(g, getLocationFront());
+    }
   }
 
 
@@ -208,21 +216,30 @@ public class ActorWorld extends World<Actor>
       {
         int count = countLives();
         ExLives life = new ExLives();
-        if (x < 2)
+        if (count < 2)
         {
-          life.putSelfInGrid(g, new Location(x+1, 13));
+          life.putSelfInGrid(g, new Location(count+1, 13));
         }
       }
 
       if(g.get(player) instanceof Ammo)
       {
-        int count = countAmmo();
-        Ammo amm = new Ammo();
-        if (x < 5)
+        for(int index = 1; index <= 5; index++)
         {
-          amm.putSelfInGrid(g, new Location(x+1, 14));
+          BulletSupply amm = new BulletSupply();
+          amm.putSelfInGrid(g, new Location(index, 14));
         }
       }
+
+      // if(g.get(player) instanceof Ammo)
+      // {
+      //   int count = countAmmo();
+      //   Ammo amm = new Ammo();
+      //   if (count < 5)
+      //   {
+      //     amm.putSelfInGrid(g, new Location(count+1, 14));
+      //   }
+      // }
 
 			obj.moveTo(player);
 		}
