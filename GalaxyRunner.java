@@ -16,7 +16,6 @@ public class GalaxyRunner{
 		ActorWorld world = new ActorWorld();
 		Location goal = new Location(11,11);
 		Player player = new Player(goal);
-		world.playerLocation(player.getLocation());
 		
 		world.add(new Location(0,0), player);
 		for (int i = 0; i < 19; i++)
@@ -71,6 +70,8 @@ public class GalaxyRunner{
 		{
 			world.add(new Location(q,14),new Rock());
 		}
+		
+		world.playerLocation(player.getLocation());
 	
 		world.show();
 	}
