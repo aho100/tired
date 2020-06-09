@@ -209,7 +209,8 @@ public class ActorWorld extends World<Actor>
 	if(description.equals("S"))
 		y = 1;
   if(description.equals("M") && g.isValid(getLocationFront()) && !(g.get(getLocationFront()) instanceof Ammo)
-      && !(g.get(getLocationFront()) instanceof ExLives) && !(g.get(getLocationFront()) instanceof Rock) && isAmmo())
+      && !(g.get(getLocationFront()) instanceof ExLives) && !(g.get(getLocationFront()) instanceof Rock)
+      && !(g.get(getLocationFront()) instanceof LastTile) && isAmmo())
   {
     if (g.get(getLocationFront()) instanceof Alien)
     {
@@ -222,6 +223,11 @@ public class ActorWorld extends World<Actor>
       bull.setDirection( dir );
       bull.putSelfInGrid(g, getLocationFront());
     }
+  }
+  if(description.equals("P"))
+  {
+    Restart res = new Restart();
+    res.restart(this);
   }
 
 
@@ -284,17 +290,17 @@ public class ActorWorld extends World<Actor>
       if (g.get(player) instanceof Traps)
       {
         Alien ali = new Alien(false, obj);
-        int y1 = (int) Math.random() * 11 + 1;
-        int x1 = (int) Math.random() * 11 + 1;
+        int y1 = (int) Math.floor(Math.random() * 11) + 1;
+        int x1 = (int) Math.floor(Math.random() * 11) + 1;
         Location loc1 = new Location(y1, x1);
 
-        while (g.get(loc) != null)
+        while (!(g.get(loc1) == null) || player.equals(loc1))
         {
-          int y2 = (int) Math.random() * 11 + 1;
-          int x2 = (int) Math.random() * 11 + 1;
-          loc1 = new Location(y1, x1);
+          int y2 = (int) Math.floor(Math.random() * 11) + 1;
+          int x2 = (int) Math.floor(Math.random() * 11) + 1;
+          loc1 = new Location(y2, x2);
         }
-        add(loc, ali);
+        add(loc1, ali);
       }
 
 
