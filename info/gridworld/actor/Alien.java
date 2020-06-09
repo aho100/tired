@@ -14,7 +14,7 @@ public class Alien extends Critter {
 	public final Location FIRST_LIFE = new Location(2, 13);
 	public final Location SECOND_LIFE = new Location(1, 13);
 
-	//Constructs an Alien
+    //Constructs an Alien
     //@param rocks: determines if the Alien can place rocks or not
     public Alien(boolean canPlaceRocks, Player player1) { 
     	setColor(Color.GREEN);
