@@ -42,7 +42,7 @@ public class Alien extends Critter {
 		Grid<Actor> gr = getGrid();
 
 		for (Actor a : actors) {
-            if (a instanceof Player) { 
+            if (a instanceof Player) {
             	removeSelfFromGrid();
 	        if (gr.get(FIRST_LIFE) != null)
 	            gr.remove(FIRST_LIFE);
@@ -52,7 +52,8 @@ public class Alien extends Critter {
             else
                 for (int y=0; y<12; y++) {
                     for (int x=0; x<12; x++) {
-                        gr.put(new Location(y,x), new GameOver());
+			GameOver gover = new GameOver();
+                        gover.putSelfInGrid(gr, new Location(y,x));
                     }
                 }
         	}
