@@ -10,38 +10,15 @@ import java.awt.Color;
 
 
 public class Traps extends Actor
-{
-	private Player selected;
-	private Alien enemy;
-	private Location loc;
-	private Location loc1;
-	private Location loc2;
-	
+{	
 	public Traps()
 	{
 		setColor(Color.YELLOW);
 	}
 	
-	public void act() //do nothing until player steps in it and trap disappears/enemy spawns
+	public void act()
 	{	
-		Grid<Actor> g = getGrid();
-		int rand = (int)(Math.random() * 10);
-		int randx = (int)(Math.random() * 11) + 1;
-		int randy = (int)(Math.random() * 11) + 1;
-		loc = new Location(randy, randx);
-		if ((rand == 1) && (g.isValid(loc))) //10% chance to spawn			
-		{
-			Actor spawn = new Traps();
-			spawn.putSelfInGrid(g, loc);
-		}
-		
-		loc1 = selected.getLocation();
-		loc2 = getLocation();
-		if (loc1.equals(loc2))
-		{
-			removeSelfFromGrid();
-			enemy.putSelfInGrid(g, loc2);
-		}
+	
 	}
 }
 	
