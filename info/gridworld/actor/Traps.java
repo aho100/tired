@@ -22,4 +22,3 @@ public class Traps extends Actor
 	}
 		
 }
-	
