@@ -241,7 +241,7 @@ public class GUIController<T>
 			{
 				shoot();
 			}
-		}
+		});
         
         speedSlider.addChangeListener(new ChangeListener()
         {
