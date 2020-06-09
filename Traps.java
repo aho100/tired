@@ -11,11 +11,11 @@ import java.awt.Color;
 
 public class Traps extends Actor
 {
-	private Actor selected = null;
-	private Alien enemy = null;
-	private Location loc = null;
-	private Location loc1 = null;
-	private Location loc2 = null;
+	private Player player;
+	private Alien enemy;
+	private Location loc;
+	private Location loc1;
+	private Location loc2;
 	
 	public Traps()
 	{
@@ -26,21 +26,11 @@ public class Traps extends Actor
 	{	
 		Grid g = getGrid();
 		
-		int rand = (int)(Math.random() * 10);
-		int randx = (int)(Math.random() * 11) + 1;
-		int randy = (int)(Math.random() * 11) + 1;
-		loc = new Location(randy, randx);
-		if ((rand == 1) && (g.isValid(loc))) //10% chance to spawn			
+		loc1 = player.getLocation();
+		loc2 = getLocation();
+		if (loc1.equals(loc2))
 		{
-			Traps spawn = new Traps();
-			spawn.putSelfInGrid(grid, loc);
-		}
-		
-		loc1 = selected.getLocation();
-		loc2 = this.getLocation();
-		if (selected instanceof Player && loc1.equals(loc2))
-		{
-			this.removeSelfFromGrid();
+			removeSelfFromGrid();
 			enemy.putSelfInGrid(g, loc2);
 		}
 	}
