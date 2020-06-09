@@ -71,7 +71,7 @@ public class GridPanel extends JPanel implements Scrollable,
     private int numRows, numCols, originRow, originCol;
     private int cellSize; // the size of each cell, EXCLUDING the gridlines
     private boolean toolTipsEnabled;
-    private Color backgroundColor = Color.BLUE;
+    private Color backgroundColor = Color.BLACK;
     private ResourceBundle resources;
     private DisplayMap displayMap;
     private Location currentLocation;
@@ -171,7 +171,7 @@ public class GridPanel extends JPanel implements Scrollable,
                     g2.fillRect(x + 1, y + 1, cellSize, cellSize);
             }
 
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.WHITE);
         for (int y = miny; y <= maxy; y += cellSize + 1)
             // draw horizontal lines
             g2.drawLine(minx, y, maxx, y);
