@@ -100,6 +100,10 @@ public class ActorWorld extends World<Actor>
 
     }
 
+/**
+ * Counts how many lives you have in vertical bar on the right of the world.
+ * @return  Returns number of lives left.
+ */
     public int countLives()
     {
       Grid<Actor> g = getGrid();
@@ -115,6 +119,10 @@ public class ActorWorld extends World<Actor>
       return y;
     }
 
+/**
+ * Counts Ammo left on vertical bar on right of world.
+ * @return Returns number of bullets.
+ */
     public int countAmmo()
     {
       Grid<Actor> g = getGrid();
@@ -130,6 +138,11 @@ public class ActorWorld extends World<Actor>
       return y;
     }
 
+/**
+ * Checks if player has ammo left to shoot.
+ * @return Returns true if there are bullets left in bar,
+ *                 false otherwise.
+ */
     public boolean isAmmo()
     {
       Grid<Actor> g = getGrid();
@@ -153,6 +166,26 @@ public class ActorWorld extends World<Actor>
     }
 
 
+/**
+ * Detects what key was pressed and acts accordingly.
+ * When WASD is pressed, player is moved.
+ * It makes sure it only moves the player by taking in the initial location of the player
+ * in the Runner, and then updating the location as it moves, and furthermore
+ * checking it is instanceof Player.
+ *
+ * It shoots bullet when you press M.
+ * The Bullet will kill enemy ahead.
+ * You lose Ammo when you shoot from the verticl bar on the right.
+ *
+ * If you move into an Ammo pack, you get all 5 bullets.
+ * If you move into an Extra Life tile, you get one more life.
+ * If you move into a Bullet that an Alein drops, you get one more bullet.
+ * Max ammo is 5 bullets.
+ *
+ * @param  description   automatically detects
+ * @param  loc            which key is pressed when key is pressed
+ * @return               returns false because we use GUI
+ */
     public boolean keyPressed(String description, Location loc)
     {
 	setMessage(description);   //Changes the message to display the 'keypressed', use to debug
@@ -186,7 +219,7 @@ public class ActorWorld extends World<Actor>
   }
 
 
-	if((x != 0 || y != 0) && player != null && g.isValid(player))
+	if((x != 0 || y != 0) && player != null && g.isValid(player) && (g.get(player) instanceof Player))
 	{
 		Actor obj = g.get(player);
 		if (obj != null )
@@ -232,15 +265,22 @@ public class ActorWorld extends World<Actor>
         }
       }
 
-      // if(g.get(player) instanceof Ammo)
-      // {
-      //   int count = countAmmo();
-      //   Ammo amm = new Ammo();
-      //   if (count < 5)
-      //   {
-      //     amm.putSelfInGrid(g, new Location(count+1, 14));
-      //   }
-      // }
+      if(g.get(player) instanceof BulletSupply)
+      {
+        int count = countAmmo();
+        BulletSupply amm = new BulletSupply();
+        if (count < 5)
+        {
+          amm.putSelfInGrid(g, new Location(count+1, 14));
+        }
+      }
+
+      if (g.get(player) instanceof Traps)
+      {
+        Alien ali = new Alien(false, obj);
+        add(ali);
+      }
+
 
 			obj.moveTo(player);
 		}
