@@ -169,7 +169,7 @@ public class ActorWorld extends World<Actor>
 		x = 1;
 	if(description.equals("S"))
 		y = 1;
-  if(description.equals("M") && !(g.get(getLocationFront()) instanceof Ammo)
+  if(description.equals("M") && g.isValid(getLocationFront()) && !(g.get(getLocationFront()) instanceof Ammo)
       && !(g.get(getLocationFront()) instanceof ExLives) && isAmmo())
   {
     if (g.get(getLocationFront()) instanceof Alien)
@@ -192,7 +192,8 @@ public class ActorWorld extends World<Actor>
 		if (obj != null )
 		{
 	    Location player1 = new Location(player.getRow() + y, player.getCol() + x);
-      if (g.isValid(player1) && !(g.get(player1) instanceof Rock))
+      if (g.isValid(player1) && !(g.get(player1) instanceof Rock)
+          && !(g.get(player1) instanceof Alien) && !(g.get(player1) instanceof Bullet))
         player = player1;
 
       switch(x){
