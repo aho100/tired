@@ -32,7 +32,7 @@ public class Traps extends Actor
 		loc = new Location(randy, randx);
 		if ((rand == 1) && (g.isValid(loc))) //10% chance to spawn			
 		{
-			Actor spawn = new Traps();
+			Traps spawn = new Traps();
 			spawn.putSelfInGrid(grid, loc);
 		}
 		
