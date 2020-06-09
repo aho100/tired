@@ -32,8 +32,6 @@ public class Bullet extends Actor
 			 selected.removeSelfFromGrid();
 			 this.removeSelfFromGrid();
 			 
-			 Explosion explode = new Explosion();
-			 explode.putSelfInGrid(grid,loc);
 			 double r = Math.random()*4; // 0 - 3
 			 double p = Math.random()*2;
 			 if((int)r == 1)
@@ -47,8 +45,13 @@ public class Bullet extends Actor
 				else
 				{
 					Actor e = new ExLives();
-				e.putSelfInGrid(grid, loc);
+					e.putSelfInGrid(grid, loc);
 				}
+			 }
+			 else
+			 {
+				 Explosion explode = new Explosion();
+				 explode.putSelfInGrid(grid,loc);
 			 }
 		}
 		else
