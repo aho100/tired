@@ -170,7 +170,16 @@ public class GUIController<T>
     /**
      * Stops any existing timer currently carrying out steps.
      */
-    
+    public void stop()
+    {
+        display.setToolTipsEnabled(true);
+        parentFrame.setRunMenuItemsEnabled(true);
+        timer.stop();
+        stopButton.setEnabled(false);
+        runButton.setEnabled(true);
+        stepButton.setEnabled(true);
+        running = false;
+    }
 
     public boolean isRunning()
     {
