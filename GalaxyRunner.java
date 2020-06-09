@@ -11,7 +11,7 @@ import info.gridworld.actor.BulletSupply;
 import info.gridworld.actor.Alien;
 import info.gridworld.actor.Player;
 import info.gridworld.actor.Bullet;
-
+import info.gridworld.actor.Traps;
 
 
 import java.awt.Color;
@@ -42,7 +42,13 @@ public class GalaxyRunner{
 		{
 			world.add(new Ammo());
 		}
-
+	
+		for (int o = 0; o < 3; o++)  //spawns traps
+		{
+			double w = Math.random() * 9 + 2;
+			double y = Math.random() * 12;
+			world.add(new Location ((int)w, (int)y), new Traps());
+		}
 
 
 		BulletSupply tracker1 = new BulletSupply(); //tracks bullets and lives on the side of the grid
