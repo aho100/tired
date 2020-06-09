@@ -22,11 +22,20 @@ public class Traps extends Actor
 		setColor(Color.YELLOW);
 	}
 	
-	public void act() //do nothing until player steps in it and trap disappears/alien spawns
+	public void act() //do nothing until player steps in it and trap disappears/enemy spawns
 	{	
-		Grid g = getGrid();
+		Grid<Actor> g = getGrid();
+		int rand = (int)(Math.random() * 10);
+		int randx = (int)(Math.random() * 11) + 1;
+		int randy = (int)(Math.random() * 11) + 1;
+		loc = new Location(randy, randx);
+		if ((rand == 1) && (g.isValid(loc))) //10% chance to spawn			
+		{
+			Actor spawn = new Traps();
+			spawn.putSelfInGrid(g, loc);
+		}
 		
-		loc1 = player.getLocation();
+		loc1 = selected.getLocation();
 		loc2 = getLocation();
 		if (loc1.equals(loc2))
 		{
