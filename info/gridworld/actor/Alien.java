@@ -8,21 +8,21 @@ import java.util.Random;
 import java.awt.Color;
 
 public class Alien extends Critter {
-	public boolean boss;
-	public Player player; 
-	public int steps;
-	public final Location FIRST_LIFE = new Location(2, 13);
-	public final Location SECOND_LIFE = new Location(1, 13);
+    public boolean boss;
+    public Actor player; 
+    public int steps;
+    public final Location FIRST_LIFE = new Location(2, 13);
+    public final Location SECOND_LIFE = new Location(1, 13);
 
     //Constructs an Alien
     //@param rocks: determines if the Alien can place rocks or not
-    public Alien(boolean canPlaceRocks, Player player1) { 
-    	setColor(Color.GREEN);
-    	boss = canPlaceRocks;
-    	player = player1;
-    	steps = 0;
+    public Alien(boolean canPlaceRocks, Actor player1) { 
+        setColor(Color.GREEN);
+        boss = canPlaceRocks;
+        player = player1;
+        steps = 0;
     }
-
+	
     public void act() {
         if (getGrid() == null)
             return;
