@@ -34,7 +34,7 @@ public class Bullet extends Actor
 		if(checkEnemies()){
 			 loc = selected.getLocation();
 			 selected.removeSelfFromGrid();
-			 this.removeSelfFromGrid();
+			 removeSelfFromGrid();
 			 double r = Math.random()*4; // 0 - 3
 			 double p = Math.random()*2;
 			 if((int)r == 1)
@@ -53,7 +53,7 @@ public class Bullet extends Actor
 			 }
 		}
 		else
-			this.removeSelfFromGrid();
+			removeSelfFromGrid();
 
 
 	}
@@ -74,7 +74,8 @@ public class Bullet extends Actor
 		{
 			a = gr.get(l);
 
-			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo) && !(a instanceof Traps))
+			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo) && !(a instanceof Traps)
+					&& !(a instanceof BulletSupply) && !(a instanceof GameOver) && !(a instanceof YouWin))
 			{
 				selected = gr.get(l);
 				return true;

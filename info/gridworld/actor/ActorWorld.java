@@ -24,6 +24,8 @@ import java.awt.Color;
 
 import java.util.ArrayList;
 
+import java.lang.Math;
+
 /**
  * An <code>ActorWorld</code> is occupied by actors. <br />
  * This class is not tested on the AP CS A and AB exams.
@@ -174,6 +176,9 @@ public class ActorWorld extends World<Actor>
  * checking it is instanceof Player.
  *
  * It shoots bullet when you press M.
+ * You cannot spawn Bullet ontop of anything,
+ * if you try for Rock, Ammo, or Extra Lives it will not do anything,
+ * if you try for Alein it will kill the Alien ahead.
  * The Bullet will kill enemy ahead.
  * You lose Ammo when you shoot from the verticl bar on the right.
  *
@@ -204,7 +209,7 @@ public class ActorWorld extends World<Actor>
 	if(description.equals("S"))
 		y = 1;
   if(description.equals("M") && g.isValid(getLocationFront()) && !(g.get(getLocationFront()) instanceof Ammo)
-      && !(g.get(getLocationFront()) instanceof ExLives) && isAmmo())
+      && !(g.get(getLocationFront()) instanceof ExLives) && !(g.get(getLocationFront()) instanceof Rock) && isAmmo())
   {
     if (g.get(getLocationFront()) instanceof Alien)
     {
@@ -279,7 +284,17 @@ public class ActorWorld extends World<Actor>
       if (g.get(player) instanceof Traps)
       {
         Alien ali = new Alien(false, obj);
-        add(ali);
+        int y1 = (int) Math.random() * 11 + 1;
+        int x1 = (int) Math.random() * 11 + 1;
+        Location loc1 = new Location(y1, x1);
+
+        while (g.get(loc) != null)
+        {
+          int y2 = (int) Math.random() * 11 + 1;
+          int x2 = (int) Math.random() * 11 + 1;
+          loc1 = new Location(y1, x1);
+        }
+        add(loc, ali);
       }
 
 
