@@ -1,0 +1,4 @@
+-Xlint:all
+-sourcepath
+src/main/java/
+/Users/tk2388/Desktop/GridWorldCode-master/info/gridworld/actor/Bullet.java

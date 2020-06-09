@@ -29,7 +29,7 @@ public class Bullet extends Actor
 	public void act()
 	{
 		Location loc=null;
-		Grid grid = getGrid();
+		Grid<Actor> grid = getGrid();
 		//System.out.println(checkEnemies());
 		if(checkEnemies()){
 			 loc = selected.getLocation();
