@@ -11,7 +11,7 @@ import java.awt.Color;
 
 public class Traps extends Actor
 {
-	private Player player;
+	private Player selected;
 	private Alien enemy;
 	private Location loc;
 	private Location loc1;
