@@ -22,6 +22,10 @@ public class Bullet extends Actor
 		setDirection(dir);
 	}
 
+
+/**
+ * Kills the enemy (if any), and removes itself from grid as well.
+ */
 	public void act()
 	{
 		Location loc=null;
@@ -54,7 +58,12 @@ public class Bullet extends Actor
 
 	}
 
-	public boolean checkEnemies()   //checks if the column, the bullet is in, has an enemy
+/**
+ * Checks if enemy is in line of direction of bullet.
+ * Makes sure it detects enemy and not Rock, ExLives, Traps or Ammo.
+ * @return true if enemy, false otherwise.
+ */
+	public boolean checkEnemies()
 	{
 		Grid<Actor> gr = getGrid();
 		Actor a = null;
@@ -65,7 +74,7 @@ public class Bullet extends Actor
 		{
 			a = gr.get(l);
 
-			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo))
+			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo) && !(a instanceof Traps))
 			{
 				selected = gr.get(l);
 				return true;
