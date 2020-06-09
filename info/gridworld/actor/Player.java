@@ -11,13 +11,13 @@ public class Player extends Bug
   public Player()
   {
     setColor(Color.RED);
-    setDirection(180);
+    setDirection(0);
   }
 
   public Player(Location l)
   {
     setColor(Color.RED);
-    setDirection(180);
+    setDirection(0);
     loc = l;
   }
 
@@ -25,10 +25,17 @@ public class Player extends Bug
   {
     if (getLocation().equals(loc))
     {
-      YouWin x = new YouWin(Color.WHITE);
-      Location loc = new Location((getGrid().getNumRows() / 2), (getGrid().getNumCols() / 2));
-      x.putSelfInGrid(getGrid(), loc);
+      Grid<Actor> gr = getGrid();
       removeSelfFromGrid();
+      for (int indy = 0; indy < 12; indy++)
+      {
+        for (int indx = 0; indx < 12; indx++)
+        {
+          YouWin message = new YouWin(Color.WHITE);
+          Location loc = new Location(indy, indx);
+          message.putSelfInGrid(gr, loc);
+        }
+      }
     }
   }
 
