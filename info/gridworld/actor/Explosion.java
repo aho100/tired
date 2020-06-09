@@ -5,7 +5,7 @@ import info.gridworld.grid.Location;
 
 import java.awt.Color;
 
-public class Explosion
+public class Explosion extends Actor
 {
   public Explosion()
   {

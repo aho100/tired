@@ -22,6 +22,10 @@ public class Bullet extends Actor
 		setDirection(dir);
 	}
 
+
+/**
+ * Kills the enemy (if any), and removes itself from grid as well.
+ */
 	public void act()
 	{
 		Location loc=null;
@@ -30,8 +34,7 @@ public class Bullet extends Actor
 		if(checkEnemies()){
 			 loc = selected.getLocation();
 			 selected.removeSelfFromGrid();
-			 this.removeSelfFromGrid();
-			 
+			 removeSelfFromGrid();
 			 double r = Math.random()*4; // 0 - 3
 			 double p = Math.random()*2;
 			 if((int)r == 1)
@@ -45,7 +48,7 @@ public class Bullet extends Actor
 				else
 				{
 					Actor e = new ExLives();
-					e.putSelfInGrid(grid, loc);
+				e.putSelfInGrid(grid, loc);
 				}
 			 }
 			 else
@@ -55,12 +58,17 @@ public class Bullet extends Actor
 			 }
 		}
 		else
-			this.removeSelfFromGrid();
+			removeSelfFromGrid();
 
 
 	}
 
-	public boolean checkEnemies()   //checks if the column, the bullet is in, has an enemy
+/**
+ * Checks if enemy is in line of direction of bullet.
+ * Makes sure it detects enemy and not Rock, ExLives, Traps or Ammo.
+ * @return true if enemy, false otherwise.
+ */
+	public boolean checkEnemies()
 	{
 		Grid<Actor> gr = getGrid();
 		Actor a = null;
@@ -71,7 +79,8 @@ public class Bullet extends Actor
 		{
 			a = gr.get(l);
 
-			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo))
+			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo) && !(a instanceof Traps)
+					&& !(a instanceof BulletSupply) && !(a instanceof GameOver) && !(a instanceof YouWin))
 			{
 				selected = gr.get(l);
 				return true;
@@ -81,4 +90,3 @@ public class Bullet extends Actor
 		return false;
 	}
 }
-	

@@ -244,7 +244,8 @@ public class ActorWorld extends World<Actor>
   {
     if (g.get(getLocationFront()) instanceof Alien)
     {
-      g.remove(getLocationFront());
+      Explosion explode = new Explosion();
+      explode.putSelfInGrid(g, getLocationFront());
     }
     else
     {
@@ -279,7 +280,7 @@ public class ActorWorld extends World<Actor>
       setMessage(steps+": Poor Grandpa, waiting to get saved... while you mope around! SHOOT!");
     else if (isBetween(steps, 0, 10))
       setMessage(steps+": great...");
-// The only way to affect the player by using .get() was through methods in Actor 
+// The only way to affect the player by using .get() was through methods in Actor
 // So i got clever and changed the color and then made the Player react to its color!
 // BIG BRAIN
     else if (steps == 0)
