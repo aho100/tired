@@ -16,7 +16,7 @@
  * @author Cay Horstmann
  */
 
-package info.gridworld.actor;
+
 package info.gridworld.gui;
 
 import info.gridworld.grid.*;
