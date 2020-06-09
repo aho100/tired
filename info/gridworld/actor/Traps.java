@@ -13,7 +13,7 @@ public class Traps extends Actor
 {
 	public Traps()
 	{
-		setColor(Color.YELLOW);
+		setColor(Color.PURPLE);
 	}
 	
 	public void act()
