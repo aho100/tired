@@ -12,6 +12,8 @@ import info.gridworld.actor.Alien;
 import info.gridworld.actor.Player;
 import info.gridworld.actor.Bullet;
 import info.gridworld.actor.Traps;
+import info.gridworld.actor.LastTile;
+import info.gridworld.actor.Restart;
 
 
 import java.awt.Color;
@@ -42,7 +44,7 @@ public class GalaxyRunner{
 		{
 			world.add(new Ammo());
 		}
-	
+
 		for (int o = 0; o < 3; o++)  //spawns traps
 		{
 			double w = Math.random() * 9 + 2;
