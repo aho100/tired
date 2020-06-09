@@ -1,6 +1,7 @@
 import info.gridworld.actor.ActorWorld;
 import info.gridworld.grid.Location;
 import info.gridworld.gui.GridPanel;
+import info.gridworld.actor.Actor;
 import info.gridworld.actor.Bug;
 import info.gridworld.actor.Rock;
 import info.gridworld.actor.Flower;
@@ -13,6 +14,7 @@ import info.gridworld.actor.Player;
 import info.gridworld.actor.Bullet;
 import info.gridworld.actor.Traps;
 import info.gridworld.actor.LastTile;
+import info.gridworld.actor.Explosion;
 import info.gridworld.actor.Restart;
 
 
