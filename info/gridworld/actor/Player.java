@@ -7,6 +7,7 @@ import java.awt.Color;
 public class Player extends Bug
 {
   private Location loc;
+  public int steps = 100;
 
   public Player()
   {
@@ -21,11 +22,21 @@ public class Player extends Bug
     loc = l;
   }
 
+  public void step()
+  {
+    steps -= 1;
+  }
+
+  public int getSteps()
+  {
+    return steps;
+  }
+
   public void act()
   {
+    Grid<Actor> gr = getGrid();
     if (getLocation().equals(loc))
     {
-      Grid<Actor> gr = getGrid();
       removeSelfFromGrid();
       for (int indy = 0; indy < 12; indy++)
       {
@@ -35,6 +46,14 @@ public class Player extends Bug
           Location loc = new Location(indy, indx);
           message.putSelfInGrid(gr, loc);
         }
+      }
+    }
+    if (getColor().equals(Color.GREEN)) {
+      for (int y1=0; y1<12; y1++) {
+          for (int x1=0; x1<12; x1++) {
+              GameOver gover = new GameOver();
+              gover.putSelfInGrid(gr, new Location(y1,x1));
+          }
       }
     }
   }

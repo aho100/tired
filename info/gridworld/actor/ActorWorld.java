@@ -33,10 +33,11 @@ import java.lang.Math;
 
 public class ActorWorld extends World<Actor>
 {
-    private static final String DEFAULT_MESSAGE = "Click on a grid location to construct or manipulate an actor.";
+    private static final String DEFAULT_MESSAGE = "Press WASD to move, M to shoot! Press \"RUN\" to start the game!";
 
     private Location selected;		//new variable to move individual actors
     private Location player = null;
+    private int steps = 100;
 
 
     /**
@@ -160,11 +161,39 @@ public class ActorWorld extends World<Actor>
       return false;
     }
 
+/**
+ * Gets the Location 'in front' of the Player,
+ * or where the player is trying to move into.
+ * @return Location where Player is trying to move into.
+ */
     public Location getLocationFront()
     {
       Grid<Actor> g = getGrid();
       Location loc = player.getAdjacentLocation( g.get(player).getDirection() + 90 );
       return loc;
+    }
+
+/**
+ * Resets steps to 100.
+ */
+    public void resetSteps()
+    {
+      steps = 100;
+    }
+
+/**
+ * Figures out if num is in between two numbers.
+ * @param  num Your main number.
+ * @param  i   Lower bound (exclusive).
+ * @param  ii  Uppder bound (inclusive).
+ * @return     True if in between, False otherwise.
+ */
+    public boolean isBetween(int num, int i, int ii)
+    {
+      if (num <= ii && num > i)
+        return true;
+      else
+        return false;
     }
 
 
@@ -194,7 +223,7 @@ public class ActorWorld extends World<Actor>
  */
     public boolean keyPressed(String description, Location loc)
     {
-	setMessage(description);   //Changes the message to display the 'keypressed', use to debug
+	//setMessage(description);   //Changes the message to display the 'keypressed', use to debug
 
   	Grid<Actor> g = getGrid();
 
@@ -210,7 +239,8 @@ public class ActorWorld extends World<Actor>
 		y = 1;
   if(description.equals("M") && g.isValid(getLocationFront()) && !(g.get(getLocationFront()) instanceof Ammo)
       && !(g.get(getLocationFront()) instanceof ExLives) && !(g.get(getLocationFront()) instanceof Rock)
-      && !(g.get(getLocationFront()) instanceof LastTile) && isAmmo())
+      && !(g.get(getLocationFront()) instanceof LastTile) && !(g.get(getLocationFront()) instanceof YouWin)
+      && !(g.get(getLocationFront()) instanceof GameOver) && isAmmo())
   {
     if (g.get(getLocationFront()) instanceof Alien)
     {
@@ -230,6 +260,76 @@ public class ActorWorld extends World<Actor>
     res.restart(this);
   }
 
+// Messages depending on how much you moved.
+  if (isBetween(steps, 90, 100))
+    setMessage(steps+": Wait for me Grandpa! I'm coming to save you!");
+  else
+  {
+    if (isBetween(steps, 80, 90))
+      setMessage(steps+": To avenge Mother's death!");
+    else if (isBetween(steps, 70, 80))
+      setMessage(steps+": Grandpa!! Where are you!?");
+    else if (isBetween(steps, 60, 70))
+      setMessage(steps+": SHOOT THE ALIENS!");
+    else if (isBetween(steps, 50, 60))
+      setMessage(steps+": Almost.. There... !");
+    else if (isBetween(steps, 30, 50))
+      setMessage(steps+": Stop running around and start shooting the ALIENS!");
+    else if (isBetween(steps, 10, 30))
+      setMessage(steps+": Poor Grandpa, waiting to get saved... while you mope around! SHOOT!");
+    else if (isBetween(steps, 0, 10))
+      setMessage(steps+": great...");
+// The only way to affect the player by using .get() was through methods in Actor 
+// So i got clever and changed the color and then made the Player react to its color!
+// BIG BRAIN
+    else if (steps == 0)
+    {
+      g.get(player).setColor(Color.GREEN);
+    }
+  }
+
+// random game over messages
+  if (g.get(player) instanceof GameOver)
+  {
+    int mess = (int) Math.floor(Math.random()*4);
+    switch(mess){
+      case 0:
+        setMessage("GAME OVER: Sorry Grandpa :( \nPress 'P' to play again!");
+        break;
+      case 1:
+        setMessage("GAME OVER: Grandpa, I'm Never gonna give you up, Never gonna let you down, Never gonna turn around, and DESERT YOU! \nPress 'P' to play again!");
+        break;
+      case 2:
+        setMessage("GAME OVER: Play again!... or not haha just kidding... unless?\nPress 'P' to play again!");
+        break;
+      case 3:
+        setMessage("GAME OVER: GET BETTER NEXT TIME \nPress 'P' to play again!");
+        break;
+    }
+  }
+// random you win messages
+  if (g.get(player) instanceof YouWin)
+  {
+    int mess = (int) Math.floor(Math.random()*5);
+    switch(mess){
+      case 0:
+        setMessage("YOU WIN: FINALLY! \nPress 'P' to play again!");
+        break;
+      case 1:
+        setMessage("YOU WIN: Grandpa? Where are you? Hello? \nPress 'P' to play again!");
+        break;
+      case 2:
+        setMessage("YOU WIN: OH Grandpa!... no! WHO ARE YOU? ->>>> to be continued... \nPress 'P' to play again!");
+        break;
+      case 3:
+        setMessage("YOU WIN: unless... no you win! \nPress 'P' to play again!");
+        break;
+      case 4:
+        setMessage("YOU WIN: But Grandpa was nowhere to be seen... \"No... Father?\" ->>>> to be continued... \nPress 'P' to play again!");
+        break;
+    }
+  }
+
 
 	if((x != 0 || y != 0) && player != null && g.isValid(player) && (g.get(player) instanceof Player))
 	{
@@ -238,8 +338,12 @@ public class ActorWorld extends World<Actor>
 		{
 	    Location player1 = new Location(player.getRow() + y, player.getCol() + x);
       if (g.isValid(player1) && !(g.get(player1) instanceof Rock)
-          && !(g.get(player1) instanceof Alien) && !(g.get(player1) instanceof Bullet))
-        player = player1;
+          && !(g.get(player1) instanceof Alien) && !(g.get(player1) instanceof Bullet) && (steps > 0))
+      {
+          player = player1;
+          steps -= 1;
+      }
+
 
       switch(x){
         case 1:
