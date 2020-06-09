@@ -181,6 +181,7 @@ public class ActorWorld extends World<Actor>
  * If you move into an Extra Life tile, you get one more life.
  * If you move into a Bullet that an Alein drops, you get one more bullet.
  * Max ammo is 5 bullets.
+ * If you move into a Trap an Alien will spawn somewhere randomly.
  *
  * @param  description   automatically detects
  * @param  loc            which key is pressed when key is pressed
