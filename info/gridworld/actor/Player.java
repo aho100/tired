@@ -42,7 +42,7 @@ public class Player extends Bug
       {
         for (int indx = 0; indx < 12; indx++)
         {
-          YouWin message = new YouWin(Color.WHITE);
+          YouWin message = new YouWin(Color.YELLOW);
           Location loc = new Location(indy, indx);
           message.putSelfInGrid(gr, loc);
         }
