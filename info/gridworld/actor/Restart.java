@@ -14,7 +14,6 @@ public class Restart extends Actor
 
   public void restart(ActorWorld world)
   {
-    world.resetSteps();
     for (Location loc : world.getGrid().getOccupiedLocations())
         world.getGrid().remove(loc);
 

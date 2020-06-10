@@ -38,6 +38,8 @@ public class ActorWorld extends World<Actor>
     private Location selected;		//new variable to move individual actors
     private Location player = null;
     private int steps = 100;
+    private int kills = 0;
+    private int score;
 
 
     /**
@@ -174,14 +176,6 @@ public class ActorWorld extends World<Actor>
     }
 
 /**
- * Resets steps to 100.
- */
-    public void resetSteps()
-    {
-      steps = 100;
-    }
-
-/**
  * Figures out if num is in between two numbers.
  * @param  num Your main number.
  * @param  i   Lower bound (exclusive).
@@ -246,6 +240,7 @@ public class ActorWorld extends World<Actor>
     {
       Explosion explode = new Explosion();
       explode.putSelfInGrid(g, getLocationFront());
+      kills += 1;
     }
     else
     {
@@ -253,10 +248,14 @@ public class ActorWorld extends World<Actor>
       Bullet bull = new Bullet( dir );
       bull.setDirection( dir );
       bull.putSelfInGrid(g, getLocationFront());
+      if (bull.checkEnemies())
+        kills += 1;
     }
   }
   if(description.equals("P"))
   {
+    kills = 0;
+    steps = 100;
     Restart res = new Restart();
     res.restart(this);
   }
@@ -311,22 +310,23 @@ public class ActorWorld extends World<Actor>
 // random you win messages
   if (g.get(player) instanceof YouWin)
   {
+    score = (100*steps) + (200*kills) + (500*countLives());
     int mess = (int) Math.floor(Math.random()*5);
     switch(mess){
       case 0:
-        setMessage("YOU WIN: FINALLY! \nPress 'P' to play again!");
+        setMessage("YOUR SCORE: "+score+". YOU WIN: FINALLY! I GET TO SEE GRANDPA! \nPress 'P' to play again!");
         break;
       case 1:
-        setMessage("YOU WIN: Grandpa? Where are you? Hello? \nPress 'P' to play again!");
+        setMessage("YOUR SCORE: "+score+". YOU WIN: GRANDPA? WHERE ARE YOU? HELLO? \nPress 'P' to play again!");
         break;
       case 2:
-        setMessage("YOU WIN: OH Grandpa!... no! WHO ARE YOU? ->>>> to be continued... \nPress 'P' to play again!");
+        setMessage("YOUR SCORE: "+score+". YOU WIN: OH GRANDPA!... wait, NO THATS NOT GRANDPA! WHO ARE YOU? ->>>> to be continued... \nPress 'P' to play again!");
         break;
       case 3:
-        setMessage("YOU WIN: unless... no you win! \nPress 'P' to play again!");
+        setMessage("YOUR SCORE: "+score+". YOU WIN: OR DID YOU...? NO, YOU WIN! \nPress 'P' to play again!");
         break;
       case 4:
-        setMessage("YOU WIN: But Grandpa was nowhere to be seen... \"No... Father?\" ->>>> to be continued... \nPress 'P' to play again!");
+        setMessage("YOUR SCORE: "+score+". YOU WIN: BUT GRANDPA WAS NOWHERE TO BE SEEN... \"No... Father, is that you?\" ->>>> to be continued... \nPress 'P' to play again!");
         break;
     }
   }
