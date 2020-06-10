@@ -78,7 +78,8 @@ public class Bullet extends Actor
 		for (Location l = loc.getAdjacentLocation(getDirection()); gr.isValid(l); l = l.getAdjacentLocation(getDirection()))
 		{
 			a = gr.get(l);
-
+			if (a instanceof Rock)
+				return false;
 			if (a != null && !(a instanceof Rock) && !(a instanceof ExLives) && !(a instanceof Ammo) && !(a instanceof Traps)
 					&& !(a instanceof BulletSupply) && !(a instanceof GameOver) && !(a instanceof YouWin))
 			{
